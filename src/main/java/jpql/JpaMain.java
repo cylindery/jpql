@@ -15,28 +15,23 @@ public class JpaMain {
 
         try {
 
-            Team team = new Team();
-            team.setName("관리자");
-            em.persist(team);
+            Member member1 = new Member();
+            member1.setUsername("관리자1");
+            em.persist(member1);
 
-            Member member = new Member();
-            member.setUsername("관리자");
-            member.setAge(10);
-            member.setType(MemberType.ADMIN);
-
-            member.setTeam(team);
-
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("관리자2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
 
-            String query = "select nullif(m.username, '관리자') from Member m";
+            String query = "select locate('de', 'abcde') from Member m";
 
-            List<String> result = em.createQuery(query, String.class)
+            List<Integer> result = em.createQuery(query, Integer.class)
                     .getResultList();
 
-            for (String s : result) {
+            for (Integer s : result) {
                 System.out.println("s = " + s);
             }
 
